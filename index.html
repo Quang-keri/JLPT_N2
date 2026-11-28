@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JLPT N2 Từ vựng & Kanji (2010–2025) — Mondai 1–6</title>
+  <title>JLPT N2 — Luyện Đề Thật, Shin Kanzen &amp; Moshi to Taisaku</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -28,6 +28,12 @@
       --red-border: #fca5a5;
       --orange: #ea580c;
       --orange-bg: #fff7ed;
+      --purple: #7c3aed;
+      --purple-bg: #f5f3ff;
+      --teal: #0d9488;
+      --teal-bg: #f0fdfa;
+      --amber: #d97706;
+      --amber-bg: #fffbeb;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -84,7 +90,8 @@
       transition: background 0.15s, color 0.15s;
     }
     .icon-btn:hover { background: #f1f5f9; color: var(--primary); }
-    .icon-btn.back-btn { flex-direction: row; font-size: 14px; gap: 6px; padding: 8px 12px; }
+    .icon-btn.back-btn { flex-direction: row; font-size: 14px; gap: 6px; padding: 8px 12px; max-width: 300px; }
+    .icon-btn.back-btn span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .icon-btn.progress-btn { color: var(--primary); }
 
     .btn-submit {
@@ -117,34 +124,148 @@
     .btn-secondary:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
 
     .container {
-      max-width: 960px;
+      max-width: 980px;
       margin: 0 auto;
-      padding: 28px 20px 80px;
+      padding: 24px 20px 80px;
     }
 
-    /* Home Screen */
+    /* Section Switcher (4 separate modules) */
+    .section-nav {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .sec-tab {
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 14px 18px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.16s;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .sec-tab:hover { border-color: #c7d2fe; transform: translateY(-1px); }
+    .sec-tab-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .sec-tab-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .sec-tab-count {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .sec-tab-desc {
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    .sec-tab.active-jlpt {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+    .sec-tab.active-jlpt .sec-tab-title { color: #3730a3; }
+    .sec-tab.active-jlpt .sec-tab-count { background: var(--primary); color: #fff; }
+
+    .sec-tab.active-kanzen {
+      border-color: var(--purple);
+      background: var(--purple-bg);
+    }
+    .sec-tab.active-kanzen .sec-tab-title { color: #5b21b6; }
+    .sec-tab.active-kanzen .sec-tab-count { background: var(--purple); color: #fff; }
+
+    .sec-tab.active-moshi {
+      border-color: var(--teal);
+      background: var(--teal-bg);
+    }
+    .sec-tab.active-moshi .sec-tab-title { color: #115e59; }
+    .sec-tab.active-moshi .sec-tab-count { background: var(--teal); color: #fff; }
+
+    .sec-tab.active-grammar {
+      border-color: var(--amber);
+      background: var(--amber-bg);
+    }
+    .sec-tab.active-grammar .sec-tab-title { color: #92400e; }
+    .sec-tab.active-grammar .sec-tab-count { background: var(--amber); color: #fff; }
+
+    /* Mondai 9 Reading Passage Card */
+    .passage-card {
+      background: #fff;
+      border: 1.5px solid #cbd5e1;
+      border-left: 5px solid var(--amber);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+    }
+    .passage-label {
+      font-size: 12px;
+      font-weight: 800;
+      color: #b45309;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    .passage-body {
+      font-size: 17px;
+      line-height: 2.05;
+      color: #0f172a;
+      font-weight: 500;
+    }
+    .passage-body p {
+      margin-bottom: 14px;
+      text-indent: 1em;
+    }
+    .passage-body p:last-child { margin-bottom: 0; }
+    .blank-pill {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      border: 1.5px solid #f59e0b;
+      border-radius: 7px;
+      padding: 0 8px;
+      margin: 0 3px;
+      font-weight: 800;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    /* Home Hero */
     .home-hero {
       background: #fff;
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 28px 32px;
-      margin-bottom: 24px;
+      padding: 24px 28px;
+      margin-bottom: 20px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 18px;
       box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
     }
     .home-hero h1 {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
       color: #0f172a;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .home-hero p {
       color: var(--muted);
       font-size: 14px;
+      max-width: 600px;
     }
 
     .stats-row {
@@ -169,7 +290,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     .filter-tabs {
       display: flex;
@@ -195,7 +316,7 @@
 
     .exam-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
       gap: 16px;
     }
 
@@ -223,14 +344,15 @@
       gap: 8px;
     }
     .exam-title {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 800;
       color: #0f172a;
+      line-height: 1.4;
     }
     .exam-sub {
       font-size: 13px;
       color: var(--muted);
-      margin-top: 2px;
+      margin-top: 4px;
     }
     .badge {
       display: inline-flex;
@@ -241,16 +363,19 @@
       font-size: 12px;
       font-weight: 700;
       white-space: nowrap;
+      flex-shrink: 0;
     }
     .badge-gray { background: #f1f5f9; color: #64748b; }
     .badge-green { background: var(--green-bg); color: var(--green); border: 1px solid #bbf7d0; }
     .badge-orange { background: var(--orange-bg); color: var(--orange); border: 1px solid #fed7aa; }
+    .badge-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid #ddd6fe; }
+    .badge-teal { background: var(--teal-bg); color: var(--teal); border: 1px solid #99f6e4; }
 
     .exam-card-foot {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 12px;
+      font-size: 12.5px;
       color: var(--muted);
       padding-top: 10px;
       border-top: 1px solid #f1f5f9;
@@ -329,7 +454,7 @@
       font-size: 18px;
       font-weight: 700;
       color: #0f172a;
-      line-height: 1.75;
+      line-height: 1.8;
     }
     .q-prompt u, .opt-text u {
       color: var(--blue);
@@ -337,6 +462,19 @@
       text-decoration-thickness: 2px;
       text-underline-offset: 4px;
       font-weight: 700;
+    }
+    .star-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #d97706;
+      background: #fef3c7;
+      border: 1.5px solid #fcd34d;
+      border-radius: 6px;
+      padding: 0 7px;
+      margin: 0 2px;
+      font-size: 16px;
+      line-height: 1.4;
     }
     .m6-word-box {
       display: inline-block;
@@ -431,7 +569,7 @@
       justify-content: center;
     }
 
-    /* Explanation Box (Screenshot 3) */
+    /* Explanation Box */
     .explain-box {
       margin-top: 16px;
       background: var(--blue-bg);
@@ -458,7 +596,7 @@
       color: #1e3a8a;
     }
 
-    /* Score Summary Card (Screenshot 2) */
+    /* Score Summary Card */
     .score-card {
       background: #fff;
       border: 1px solid var(--border);
@@ -556,10 +694,12 @@
     .modal-box {
       background: #fff;
       border-radius: 20px;
-      max-width: 480px;
+      max-width: 500px;
       width: 100%;
       padding: 24px;
       box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
+      max-height: 85vh;
+      overflow-y: auto;
     }
     .modal-head {
       display: flex;
@@ -590,6 +730,9 @@
 
     .hidden { display: none !important; }
 
+    @media (max-width: 760px) {
+      .section-nav { grid-template-columns: 1fr; }
+    }
     @media (max-width: 640px) {
       .options-grid { grid-template-columns: 1fr; }
       .topbar { padding: 0 12px; }
@@ -604,13 +747,13 @@
   <!-- Sticky Topbar -->
   <header class="topbar" id="topbar">
     <div class="topbar-left">
-      <button class="icon-btn back-btn hidden" id="btnBack" title="Quay lại danh sách đề">
+      <button class="icon-btn back-btn hidden" id="btnBack" title="Quay lại danh sách">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
-        <span id="backLabel">Đề thi</span>
+        <span id="backLabel">Danh sách</span>
       </button>
       <div id="homeBrand" style="font-weight:800;font-size:16px;color:#1e1b4b;display:flex;align-items:center;gap:8px;">
         <span style="background:#4f46e5;color:#fff;padding:3px 9px;border-radius:8px;font-size:13px;">N2</span>
-        <span>JLPT Từ vựng &amp; Kanji</span>
+        <span>Luyện thi JLPT N2</span>
       </div>
     </div>
 
@@ -630,21 +773,56 @@
   <main class="container">
     <!-- Home View -->
     <section id="homeView">
+      <!-- 4 Separate Module Tabs -->
+      <div class="section-nav" id="sectionNav">
+        <button class="sec-tab active-jlpt" data-sec="jlpt">
+          <div class="sec-tab-top">
+            <span class="sec-tab-title">Từ vựng &amp; Kanji JLPT (2010–2025)</span>
+            <span class="sec-tab-count" id="countJlpt">31</span>
+          </div>
+          <div class="sec-tab-desc">31 đề chính thức • Mondai 1–6 (Từ vựng, Kanji, Đồng nghĩa, Cách dùng)</div>
+        </button>
+
+        <button class="sec-tab" data-sec="grammar">
+          <div class="sec-tab-top">
+            <span class="sec-tab-title">Ngữ pháp JLPT (2010–2025)</span>
+            <span class="sec-tab-count" id="countGrammar">31</span>
+          </div>
+          <div class="sec-tab-desc">31 đề chính thức • Mondai 7 (Ngữ pháp), 8 (Dấu sao ★) &amp; 9 (Đoạn văn)</div>
+        </button>
+
+        <button class="sec-tab" data-sec="kanzen">
+          <div class="sec-tab-top">
+            <span class="sec-tab-title">Shin Kanzen N2 (Bẫy)</span>
+            <span class="sec-tab-count" id="countKanzen">6</span>
+          </div>
+          <div class="sec-tab-desc">Chuyên đề cặp ngữ pháp dễ nhầm, Dấu sao ★ &amp; Từ vựng</div>
+        </button>
+
+        <button class="sec-tab" data-sec="moshi">
+          <div class="sec-tab-top">
+            <span class="sec-tab-title">Đề thi thử Moshi / Goukaku</span>
+            <span class="sec-tab-count" id="countMoshi">4</span>
+          </div>
+          <div class="sec-tab-desc">Đề tổng hợp Full Mondai 1–8 sát 100% đề thi thật</div>
+        </button>
+      </div>
+
       <div class="home-hero">
         <div>
-          <h1>Bộ đề JLPT N2 (2010 – 2025)</h1>
-          <p>31 đề chính thức • Gộp trọn <strong>Mondai 1 – Mondai 6</strong> (Kanji, Từ vựng, Đồng nghĩa, Cách dùng) • Giải thích chi tiết cả câu đúng và sai.</p>
+          <h1 id="heroTitle">Bộ đề thật JLPT N2 (2010 – 2025)</h1>
+          <p id="heroDesc">31 đề chính thức • Gộp trọn Mondai 1 – Mondai 6 (Kanji, Từ vựng, Đồng nghĩa, Cách dùng) • Giải thích chi tiết cả câu đúng và sai.</p>
         </div>
         <div class="stats-row" id="overallStats"></div>
       </div>
 
       <div class="toolbar">
         <div class="filter-tabs" id="homeFilterTabs">
-          <button class="tab-btn active" data-filter="all">Tất cả (31)</button>
+          <button class="tab-btn active" data-filter="all" id="tabAllLabel">Tất cả</button>
           <button class="tab-btn" data-filter="todo">Chưa làm</button>
           <button class="tab-btn" data-filter="done">Đã làm</button>
         </div>
-        <div style="display:flex;gap:8px;align-items:center;">
+        <div style="display:flex;gap:8px;align-items:center;" id="sortWrap">
           <button class="tab-btn" id="btnSortOrder">Sắp xếp: Mới nhất ↓</button>
         </div>
       </div>
@@ -678,8 +856,11 @@
     </div>
   </div>
 
-  <!-- Embedded Static Data -->
+  <!-- Embedded Static Datasets (4 separate files, zero conflict) -->
   <script src="exams_data.js"></script>
+  <script src="grammar_data.js"></script>
+  <script src="kanzen_data.js"></script>
+  <script src="moshi_data.js"></script>
   <script>
     const MONDAI_HEADERS = {
       1: "＿＿＿の言葉の読み方として最もよいものを、１・２・３・４から一つ選びなさい。",
@@ -687,7 +868,37 @@
       3: "（　　）に入れるのに最もよいものを、１・２・３・４から一つ選びなさい。",
       4: "（　　）に入れるのに最もよいものを、１・２・３・４から一つ選びなさい。",
       5: "＿＿＿の言葉に意味が最も近いものを、１・２・３・４から一つ選びなさい。",
-      6: "次の言葉の使い方として最もよいものを、１・２・３・４から一つ選びなさい。"
+      6: "次の言葉の使い方として最もよいものを、１・２・３・４から一つ選びなさい。",
+      7: "次の文の（　　）に入れるのに最もよいものを、１・２・３・４から一つ選びなさい。",
+      8: "次の文の　★　に入る最もよいものを、１・２・３・４から一つ選びなさい。",
+      9: "次の文章を読んで、文章全体の内容を考えて、［　］の中に入る最もよいものを、１・２・３・４から一つ選びなさい。"
+    };
+
+    const SECTION_META = {
+      jlpt: {
+        title: "Từ vựng & Kanji JLPT N2 (2010 – 2025)",
+        desc: "31 đề chính thức • Gộp trọn Mondai 1 – Mondai 6 (Kanji, Từ vựng, Đồng nghĩa, Cách dùng) • Giải thích chi tiết cả câu đúng và sai.",
+        activeClass: "active-jlpt",
+        sortable: true
+      },
+      grammar: {
+        title: "Ngữ pháp JLPT N2 (2010 – 2025)",
+        desc: "31 đề chính thức • Tách riêng trọn bộ Mondai 7 (Chọn ngữ pháp), Mondai 8 (Dấu sao ★) và Mondai 9 (Ngữ pháp trong đoạn văn) • Giải thích chi tiết từng câu.",
+        activeClass: "active-grammar",
+        sortable: true
+      },
+      kanzen: {
+        title: "Luyện bẫy kiểu Shin Kanzen Master N2",
+        desc: "Tách riêng chuyên sâu vào các cặp ngữ pháp dễ nhầm (Mondai 7), bài tập Dấu sao ★ (Mondai 8), phó từ/động từ ghép & từ đồng nghĩa/cách dùng hay bị lừa (Mondai 4–6).",
+        activeClass: "active-kanzen",
+        sortable: false
+      },
+      moshi: {
+        title: "Đề thi thử N2 (Moshi to Taisaku / Goukaku Dekiru)",
+        desc: "Bộ đề thi thử tổng hợp Full Kiến thức ngôn ngữ (Mondai 1–8: 47 câu/đề) mô phỏng sát 100% độ khó và bẫy của đề thi thật để luyện nước rút trước kỳ thi.",
+        activeClass: "active-moshi",
+        sortable: false
+      }
     };
 
     const STORAGE_KEY = "jlpt_n2_vocab_2010_2025_v1";
@@ -700,11 +911,23 @@
       try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
     }
 
-    const EXAMS = (window.JLPT_N2_EXAMS || []).slice();
+    const DATASETS = {
+      jlpt: (window.JLPT_N2_EXAMS || []).map(e => ({ ...e, _sec: "jlpt" })),
+      grammar: (window.JLPT_N2_GRAMMAR || []).map(e => ({ ...e, _sec: "grammar" })),
+      kanzen: (window.KANZEN_N2_SETS || []).map(e => ({ ...e, _sec: "kanzen" })),
+      moshi: (window.MOSHI_N2_EXAMS || []).map(e => ({ ...e, _sec: "moshi" }))
+    };
+
+    document.getElementById("countJlpt").textContent = DATASETS.jlpt.length;
+    document.getElementById("countGrammar").textContent = DATASETS.grammar.length;
+    document.getElementById("countKanzen").textContent = DATASETS.kanzen.length;
+    document.getElementById("countMoshi").textContent = DATASETS.moshi.length;
+
+    let activeSection = "jlpt";
     let homeFilter = "all";
     let sortNewestFirst = true;
     let currentExam = null;
-    let userAnswers = {}; // qIndex -> 1..4
+    let userAnswers = {};
     let isSubmitted = false;
     let reviewFilter = "all";
 
@@ -723,6 +946,10 @@
     const progressModal = document.getElementById("progressModal");
     const progressGrid = document.getElementById("progressGrid");
     const progressTitle = document.getElementById("progressTitle");
+    const heroTitle = document.getElementById("heroTitle");
+    const heroDesc = document.getElementById("heroDesc");
+    const sortWrap = document.getElementById("sortWrap");
+    const tabAllLabel = document.getElementById("tabAllLabel");
 
     function escapeHtml(str) {
       return String(str || "")
@@ -732,11 +959,11 @@
         .replace(/"/g, "&quot;");
     }
 
-    // Allow only <u>...</u> inside Japanese sentences
     function safePromptHtml(str) {
       return escapeHtml(str)
         .replace(/&lt;u&gt;/g, "<u>")
-        .replace(/&lt;\/u&gt;/g, "</u>");
+        .replace(/&lt;\/u&gt;/g, "</u>")
+        .replace(/★/g, '<span class="star-mark">★</span>');
     }
 
     function renderHome() {
@@ -749,37 +976,65 @@
       btnSubmit.classList.add("hidden");
       btnProgress.classList.add("hidden");
 
+      // Update section tab styles
+      document.querySelectorAll("#sectionNav .sec-tab").forEach(btn => {
+        btn.classList.remove("active-jlpt", "active-grammar", "active-kanzen", "active-moshi");
+        if (btn.dataset.sec === activeSection) {
+          btn.classList.add(SECTION_META[activeSection].activeClass);
+        }
+      });
+
+      const meta = SECTION_META[activeSection];
+      heroTitle.textContent = meta.title;
+      heroDesc.textContent = meta.desc;
+      sortWrap.classList.toggle("hidden", !meta.sortable);
+
+      const sectionItems = DATASETS[activeSection] || [];
+      tabAllLabel.textContent = `Tất cả (${sectionItems.length})`;
+
       const prog = loadProgress();
-      const doneCount = EXAMS.filter(e => prog[e.id]).length;
+      const doneCount = sectionItems.filter(e => prog[e.id]).length;
       const avgScore = doneCount
-        ? Math.round(EXAMS.reduce((s, e) => s + (prog[e.id] ? prog[e.id].bestScore : 0), 0) / doneCount)
+        ? Math.round(sectionItems.reduce((s, e) => s + (prog[e.id] ? prog[e.id].bestScore : 0), 0) / doneCount)
         : 0;
 
       overallStats.innerHTML = `
-        <div class="stat-pill"><div class="val">${doneCount}/${EXAMS.length}</div><div class="lbl">Đề đã làm</div></div>
+        <div class="stat-pill"><div class="val">${doneCount}/${sectionItems.length}</div><div class="lbl">Đã hoàn thành</div></div>
         <div class="stat-pill"><div class="val">${doneCount ? avgScore : "—"}</div><div class="lbl">Điểm TB cao nhất</div></div>
       `;
 
-      let list = EXAMS.slice();
-      list.sort((a, b) => sortNewestFirst ? b.id.localeCompare(a.id) : a.id.localeCompare(b.id));
+      let list = sectionItems.slice();
+      if (meta.sortable) {
+        list.sort((a, b) => sortNewestFirst ? b.id.localeCompare(a.id) : a.id.localeCompare(b.id));
+      }
       if (homeFilter === "done") list = list.filter(e => !!prog[e.id]);
       if (homeFilter === "todo") list = list.filter(e => !prog[e.id]);
 
       examGrid.innerHTML = list.map(exam => {
         const rec = prog[exam.id];
         let badgeHtml = `<span class="badge badge-gray">Chưa làm</span>`;
-        let footLeft = `${exam.questions.length} câu • Mondai 1–6`;
         if (rec) {
           const cls = rec.bestScore >= 70 ? "badge-green" : "badge-orange";
           badgeHtml = `<span class="badge ${cls}">${rec.bestScore}/100 điểm</span>`;
-          footLeft = `Cao nhất: ${rec.bestCorrect}/${exam.questions.length} câu`;
+        } else if (exam.badge) {
+          const bCls = activeSection === "kanzen" ? "badge-purple" : "badge-teal";
+          badgeHtml = `<span class="badge ${bCls}">${escapeHtml(exam.badge)}</span>`;
         }
+
+        const titleText = (activeSection === "jlpt" || activeSection === "grammar")
+          ? `Đề ${exam.displayName}`
+          : exam.displayName;
+        const subText = exam.subtitle || (activeSection === "grammar" ? "JLPT N2 • Mondai 7–9 (Ngữ pháp)" : "JLPT N2 • Mondai 1–6");
+        const footLeft = rec
+          ? `Cao nhất: ${rec.bestCorrect}/${exam.questions.length} câu`
+          : `${exam.questions.length} câu hỏi`;
+
         return `
-          <div class="exam-card" onclick="openExam('${exam.id}')">
+          <div class="exam-card" onclick="openExam('${activeSection}', '${exam.id}')">
             <div class="exam-card-head">
               <div>
-                <div class="exam-title">Đề ${exam.displayName}</div>
-                <div class="exam-sub">JLPT N2 • Mondai 1–6</div>
+                <div class="exam-title">${escapeHtml(titleText)}</div>
+                <div class="exam-sub">${escapeHtml(subText)}</div>
               </div>
               ${badgeHtml}
             </div>
@@ -789,11 +1044,12 @@
             </div>
           </div>
         `;
-      }).join("") || `<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:40px 0;">Không có đề nào trong mục này.</p>`;
+      }).join("") || `<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:40px 0;">Không có bài nào trong mục này.</p>`;
     }
 
-    window.openExam = function(examId) {
-      currentExam = EXAMS.find(e => e.id === examId);
+    window.openExam = function(sec, examId) {
+      const pool = DATASETS[sec] || [];
+      currentExam = pool.find(e => e.id === examId);
       if (!currentExam) return;
       userAnswers = {};
       isSubmitted = false;
@@ -803,7 +1059,9 @@
       quizView.classList.remove("hidden");
       homeBrand.classList.add("hidden");
       btnBack.classList.remove("hidden");
-      backLabel.textContent = `Đề ${currentExam.displayName}`;
+      backLabel.textContent = (sec === "jlpt" || sec === "grammar")
+        ? `Đề ${currentExam.displayName}`
+        : currentExam.displayName;
       btnSubmit.classList.remove("hidden");
       btnProgress.classList.remove("hidden");
       scoreCardMount.innerHTML = "";
@@ -812,6 +1070,24 @@
       renderQuestions();
       window.scrollTo({ top: 0, behavior: "instant" });
     };
+
+    function renderPassageHtml(text) {
+      if (!text) return "";
+      const paras = String(text).split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
+      const body = paras.map(p => {
+        const html = escapeHtml(p)
+          .replace(/\[(\d+)\]/g, '<span class="blank-pill">$1</span>')
+          .replace(/［(\d+)］/g, '<span class="blank-pill">$1</span>')
+          .replace(/\n/g, "<br>");
+        return `<p>${html}</p>`;
+      }).join("");
+      return `
+        <div class="passage-card">
+          <div class="passage-label">Đoạn văn Mondai 9 (文章の文法)</div>
+          <div class="passage-body jp">${body}</div>
+        </div>
+      `;
+    }
 
     function renderQuestions() {
       const grouped = {};
@@ -832,11 +1108,13 @@
 
         html += `<div class="mondai-block">`;
         html += `<div class="mondai-header jp"><span class="m-tag">問題${m}</span>${MONDAI_HEADERS[m] || ""}</div>`;
+        if (m === 9 && currentExam.m9_passage) {
+          html += renderPassageHtml(currentExam.m9_passage);
+        }
 
         for (const q of qList) {
           const picked = userAnswers[q._idx];
           const isCorrect = isSubmitted && picked === q.answer;
-          const isWrong = isSubmitted && picked !== q.answer;
           const cardCls = isSubmitted ? (isCorrect ? "is-correct" : "is-wrong") : "";
 
           html += `<article class="q-card ${cardCls}" id="qcard-${q._idx}">`;
@@ -906,7 +1184,7 @@
       }
 
       if (!html) {
-        html = `<div class="q-card" style="text-align:center;color:var(--green);font-weight:700;padding:36px;">Tuyệt vời! Bạn không sai câu nào trong đề này! 🎉</div>`;
+        html = `<div class="q-card" style="text-align:center;color:var(--green);font-weight:700;padding:36px;">Tuyệt vời! Bạn không sai câu nào trong bài này! 🎉</div>`;
       }
       questionsMount.innerHTML = html;
     }
@@ -914,7 +1192,6 @@
     window.selectOption = function(qIdx, optNum) {
       if (isSubmitted) return;
       userAnswers[qIdx] = optNum;
-      // Update just this card's buttons for instant snappy UX
       const card = document.getElementById(`qcard-${qIdx}`);
       if (!card) return;
       const btns = card.querySelectorAll(".opt-btn");
@@ -943,7 +1220,6 @@
       const score = Math.round((correct / total) * 100);
       const isPass = score >= 70;
 
-      // Save to localStorage
       const prog = loadProgress();
       const prev = prog[currentExam.id];
       prog[currentExam.id] = {
@@ -954,17 +1230,21 @@
       };
       saveProgress(prog);
 
-      // Ring math: r=46, circumference = 2*pi*46 ≈ 289.03
       const C = 289.03;
       const offset = C * (1 - score / 100);
       const strokeColor = isPass ? "#16a34a" : "#ea580c";
       const bgFill = isPass ? "#f0fdf4" : "#fff7ed";
+      const scoreHeader = currentExam._sec === "jlpt"
+        ? `ĐỀ ${currentExam.displayName} • MONDAI 1–6 (TỪ VỰNG & KANJI)`
+        : currentExam._sec === "grammar"
+          ? `ĐỀ ${currentExam.displayName} • MONDAI 7–9 (NGỮ PHÁP)`
+          : `${currentExam.displayName.toUpperCase()}`;
 
       scoreCardMount.innerHTML = `
         <div class="score-card">
           <div class="score-top-bar ${isPass ? "pass" : ""}"></div>
           <div class="score-body">
-            <div class="score-exam-label">ĐỀ ${currentExam.displayName} • MONDAI 1–6</div>
+            <div class="score-exam-label">${escapeHtml(scoreHeader)}</div>
             <div class="score-ring-wrap">
               <svg viewBox="0 0 112 112">
                 <circle cx="56" cy="56" r="46" fill="${bgFill}" stroke="#f1f5f9" stroke-width="8"/>
@@ -979,8 +1259,8 @@
               <span class="score-pill no">✕ Sai: ${wrong}</span>
             </div>
             <div class="score-actions">
-              <button class="btn-submit" style="padding:9px 22px;" onclick="openExam('${currentExam.id}')">Làm lại đề này</button>
-              <button class="btn-secondary" onclick="renderHome()">Quay lại danh sách đề</button>
+              <button class="btn-submit" style="padding:9px 22px;" onclick="openExam('${currentExam._sec}', '${currentExam.id}')">Làm lại bài này</button>
+              <button class="btn-secondary" onclick="renderHome()">Quay lại danh sách</button>
             </div>
           </div>
         </div>
@@ -1002,7 +1282,7 @@
       const total = currentExam.questions.length;
       const answered = Object.keys(userAnswers).length;
       progressTitle.textContent = isSubmitted
-        ? `Kết quả đề ${currentExam.displayName}`
+        ? `Kết quả: ${currentExam.displayName}`
         : `Tiến độ: ${answered}/${total} câu đã chọn`;
 
       progressGrid.innerHTML = currentExam.questions.map((q, idx) => {
@@ -1036,6 +1316,17 @@
     btnProgress.addEventListener("click", openProgressModal);
     document.getElementById("btnCloseModal").addEventListener("click", () => progressModal.classList.remove("open"));
     progressModal.addEventListener("click", e => { if (e.target === progressModal) progressModal.classList.remove("open"); });
+
+    document.querySelectorAll("#sectionNav .sec-tab").forEach(btn => {
+      btn.addEventListener("click", () => {
+        activeSection = btn.dataset.sec;
+        homeFilter = "all";
+        document.querySelectorAll("#homeFilterTabs .tab-btn").forEach(b => {
+          b.classList.toggle("active", b.dataset.filter === "all");
+        });
+        renderHome();
+      });
+    });
 
     document.querySelectorAll("#homeFilterTabs .tab-btn").forEach(btn => {
       btn.addEventListener("click", () => {
